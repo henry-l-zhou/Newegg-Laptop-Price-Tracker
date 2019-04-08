@@ -1,16 +1,26 @@
 {
-  "name": "Webscraping",
+  "name": "WebScrape",
   "version": "1.0.0",
   "description": "",
-  "main": "scrape.js",
+  "main": "promisescrape.js",
   "dependencies": {
-    "cheerio": "^1.0.0-rc.2"
+    "cheerio": "^1.0.0-rc.2",
+    "pg": "^7.9.0",
+    "request": "^2.88.0"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/henry-l-zhou/Webscraping.git"
+  },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/henry-l-zhou/Webscraping/issues"
+  },
+  "homepage": "https://github.com/henry-l-zhou/Webscraping#readme"
 }
