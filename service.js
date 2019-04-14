@@ -9,17 +9,21 @@ const pool = new Pool({
 function getLaptops() {
   msg().then(response => {
     const items = [];
-    Object.keys(response).forEach(key => {
-      items.push(`('${key}', ${response[key]})`);
-    });
+    response.forEach(object => {
+      items.push(`('${object.itemId}','${object.name}', ${object.price},TIMESTAMP '${object.date}')`);
+    })
+    console.log(items.join());
+    ;
     try {
       var response = pool.query(
-        `insert into test(
+        `insert into laptops(
+                id,
                 name,
-                price
+                price,
+                datecreated
                 ) 
                 values 
-                ${items.join(",")}
+                ${items.join(",")} 
                 `
       );
       console.log("worked");
