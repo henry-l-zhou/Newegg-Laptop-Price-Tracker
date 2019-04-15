@@ -10,7 +10,7 @@ const myRequest = () => {
 
   return new Promise((resolve, reject) => {
     request(
-      getUrl(1),
+      getUrl(2),
       (err, response, html) => {
         if (err) return reject(err);
         try {
@@ -28,8 +28,6 @@ const myRequest = () => {
             } else if (features.match("Model #:")) {
               var modelId = features.match((" Model #:" + "\\s(\\w.+)"))[1];
             }
-
-
             let item = $(el)
               .find(".item-title")
               .text();

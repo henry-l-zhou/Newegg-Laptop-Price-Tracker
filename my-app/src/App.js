@@ -4,10 +4,19 @@ import './App.css';
 import Form from "./components/Form";
 
 class App extends Component {
-  getLaptops = (e) => {
+  state = {
+    laptops: []
+  };
+
+
+  getLaptops = async (e) => {
+
     const laptopName = e.target.elements.laptopName.value;
     e.preventDefault();
-    console.log(laptopName)
+    const api_call = await fetch("http://localhost:9000/api/laptops");
+    const data = await api_call.json();
+    this.setState({ laptops: data })
+    console.log(this.state.laptops)
   }
   render() {
 
@@ -17,6 +26,9 @@ class App extends Component {
           <h1 className="App-title">Laptop Search</h1>
         </header>
         <Form getLaptops={this.getLaptops} />
+        {this.state.laptops.map((laptop) => {
+          return <p key={laptop.id}>{laptop.name}</p>
+        })}
       </div>
     );
   }
