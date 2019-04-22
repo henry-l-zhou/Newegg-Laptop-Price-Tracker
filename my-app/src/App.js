@@ -13,7 +13,7 @@ class App extends Component {
 
     const laptopName = e.target.elements.laptopName.value;
     e.preventDefault();
-    const api_call = await fetch("http://localhost:9000/api/laptops");
+    const api_call = await fetch(`http://localhost:9000/api/distinctlaptops/${laptopName}`);
     const data = await api_call.json();
     this.setState({ laptops: data })
     console.log(this.state.laptops)
@@ -27,7 +27,7 @@ class App extends Component {
         </header>
         <Form getLaptops={this.getLaptops} />
         {this.state.laptops.map((laptop) => {
-          return <p key={laptop.id}>{laptop.name}</p>
+          return <p key={laptop.serial_id}>{laptop.name}</p>
         })}
       </div>
     );
