@@ -15,8 +15,6 @@ const myRequest = () => {
         if (err) return reject(err);
         try {
           const $ = cheerio.load(html);
-
-
           let items = [];
 
           $(".item-container").each((i, el) => {
@@ -38,17 +36,22 @@ const myRequest = () => {
               .text()
               .replace(/[^a-zA-Z0-9$.]/g, "");
             let datetime = new Date();
+            let image_url = $(el)
+              .find("img")
+              .attr("src")
+              .replace(/300/g, "1280");
             laptop = {
               "itemId": itemId || modelId,
               "name": item,
               "price": price || -1,
               "date": datetime.toJSON(),
+              "image_url": image_url || null
             }
             items.push(laptop);
 
           });
 
-          console.log(items)
+          
           resolve(items);
         } catch (e) {
           reject(e);

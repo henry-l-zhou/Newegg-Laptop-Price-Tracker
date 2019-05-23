@@ -10,7 +10,7 @@ function getLaptops() {
   msg().then(response => {
     const items = [];
     response.forEach(object => {
-      items.push(`('${object.itemId}','${object.name}', ${object.price},TIMESTAMP '${object.date}')`);
+      items.push(`('${object.itemId}','${object.name}', ${object.price},TIMESTAMP '${object.date}','${object.image_url}')`);
     })
     console.log(items.join());
     ;
@@ -20,7 +20,8 @@ function getLaptops() {
                 id,
                 name,
                 price,
-                datecreated
+                datecreated,
+                image_url
                 ) 
                 values 
                 ${items.join(",")} 
