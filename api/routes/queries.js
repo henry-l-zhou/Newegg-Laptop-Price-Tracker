@@ -34,9 +34,9 @@ function getAllLaptopsDistinct(req, res, next) {
 }
 function getLaptopById(req, res, next) {
     try {
-        const id = `%${req.params.id.toUpperCase()}%`;
+        const id = `%${req.params.id}%`;
         console.log(id);
-        pool.query('select * from laptops where id LIKE $1 ORDER BY id DESC, datecreated asc', [id], (error, results) => {
+        pool.query('select * from laptops where upper(id) LIKE upper($1) ORDER BY id DESC, datecreated asc LIMIT 30', [id], (error, results) => {
             if (error) {
                 throw error
             }
@@ -50,9 +50,25 @@ function getLaptopById(req, res, next) {
 }
 function getLaptopByDistinctId(req, res, next) {
     try {
-        const id = `%${req.params.id.toUpperCase()}%`;
+        const id = `%${req.params.id}%`;
         console.log(id);
-        pool.query('SELECT DISTINCT ON (id) * FROM laptops where id LIKE $1', [id], (error, results) => {
+        pool.query('SELECT DISTINCT ON (id) * FROM laptops where upper(id) LIKE upper($1) LIMIT 30' , [id], (error, results) => {
+            if (error) {
+                throw error
+            }
+            res.status(200).json(results.rows)
+        })
+        console.log("worked");
+    }
+    catch (e) {
+        console.log("My Error", e)
+    }
+}
+function getLaptopByDistinctName(req, res, next) {
+    try {
+        const name = `%${req.params.name}%`;
+        console.log(name)
+        pool.query('SELECT DISTINCT ON (id) * FROM laptops where upper(name) LIKE upper($1) LIMIT 30', [name], (error, results) => {
             if (error) {
                 throw error
             }
@@ -68,5 +84,6 @@ module.exports = {
     getAllLaptops,
     getLaptopById,
     getAllLaptopsDistinct,
-    getLaptopByDistinctId
+    getLaptopByDistinctId,
+    getLaptopByDistinctName
 };

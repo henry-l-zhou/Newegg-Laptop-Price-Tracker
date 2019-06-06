@@ -10,4 +10,5 @@ router.get('/api/laptops', db.getAllLaptops);
 router.get('/api/distinctlaptops', db.getAllLaptopsDistinct);
 router.get('/api/laptops/:id', db.getLaptopById)
 router.get('/api/distinctlaptops/:id', db.getLaptopByDistinctId)
+router.get('/api/distinctlaptopsname/:name', db.getLaptopByDistinctName)
 module.exports = router;
