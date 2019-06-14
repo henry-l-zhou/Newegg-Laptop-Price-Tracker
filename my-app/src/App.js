@@ -12,8 +12,8 @@ class App extends Component {
       <Router >
         <Header></Header>
         <Route exact path="/" component={Home}></Route>
-        <Route exact path="/laptops" component={LaptopMain}></Route>
-        <Route path="/laptops/:laptopId" component={LaptopInfo}></Route>
+        <Route path="/laptops" component={LaptopMain}></Route>
+        <Route exact path="/laptops/:laptopId" component={LaptopInfo}></Route>
       </Router>
 
     );

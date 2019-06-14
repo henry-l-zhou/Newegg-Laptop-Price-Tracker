@@ -1,18 +1,17 @@
 const request = require("request");
 const cheerio = require("cheerio");
-const baseUrl = 'https://www.newegg.com/Laptops-Notebooks-Laptops-Notebooks/SubCategory/ID-32?Order=BESTSELLING&PageSize=96'
+const baseUrl = 'https://www.newegg.com/p/pl?N=100006740%204814&Page='
 //"https://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100006740%20601286795%20601286800%20600136700%20601296059%20601296066%204814&IsNodeId=1&LeftPriceRange=750%201250&bop=And&Page=";
 
 function getUrl(pageNum) {
 
-  return `${baseUrl}`//${pageNum}&PageSize=96&order=BESTMATCH`
+  return `${baseUrl}${pageNum}&PageSize=96`
 
 }
 const myRequest = () => {
-
   return new Promise((resolve, reject) => {
     request(
-      getUrl(2),
+      getUrl(3),
       (err, response, html) => {
         if (err) return reject(err);
         try {
@@ -61,7 +60,7 @@ const myRequest = () => {
       }
     );
   });
-};
+}
 
 myRequest();
 module.exports = myRequest;

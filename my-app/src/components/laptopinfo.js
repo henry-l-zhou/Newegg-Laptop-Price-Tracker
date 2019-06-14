@@ -1,10 +1,22 @@
 import React, { Component } from "react";
 import { Modal, Button } from 'react-bootstrap'
+import CanvasJSReact from '../canvasjs.react'
+import withRouter from 'react-router-dom'
+var CanvasJS = CanvasJSReact.CanvasJS;
+var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class LaptopInfo extends Component {
-    state = {
-        laptops: []
+    constructor(props) {
+        super(props);
+        this.handleShow = this.handleShow.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.state = {
+            laptops: [],
+            show: true,
+        };
     }
+
+
 
     componentDidMount() {
         const { match: { params } } = this.props
@@ -14,30 +26,65 @@ class LaptopInfo extends Component {
                 return results.json()
             }).then(data => {
                 this.setState({ laptops: data })
-            }).then(lol => {
-                console.log(this.state.laptops)
             })
+    }
+    handleClose() {
+        this.setState({ show: false });
+        this.props.history.push(`/laptops/`)
+    }
 
-
-
+    handleShow() {
+        this.setState({ show: true });
     }
     render() {
+        var dps = []
+        var options = {
+            animationEnabled: true,
 
+            title: {
+                text: ''
+            },
+            axisX: {
+                valueFormatString: "DD MMMM"
+            },
+            axisY: {
+                title: 'Laptop Price',
+                prefix: "$",
+                includeZero: false
+            },
+            data: [{
+                yValueFormatString: "$#,###",
+                xValueFormatString: "DD MMMM YYYY",
+                type: "line",
+                dataPoints: dps
+            }]
+        }
+
+        this.state.laptops.forEach(laptop => {
+            dps.push({
+                x: new Date(laptop.datecreated),
+                y: laptop.price
+            })
+        })
+        console.log(this.state)
         return (
-            <div>
-                {this.state.laptops.map((laptop) => {
-                    return (
-                        <div key={laptop.serial_id}>{laptop.name}</div>
 
+            <>
+                <Modal show={this.state.show} onHide={this.handleClose}>
+                    <Modal.Header closeButton>
 
-                    )
+                    </Modal.Header>
 
-                }
-                )}
+                    <CanvasJSChart options={options}></CanvasJSChart>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={this.handleClose}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+            </>
+        );
 
-            </div>
-
-                    );
-                }
+    }
 }
-                export default LaptopInfo;
+export default LaptopInfo;
