@@ -1,19 +1,26 @@
 const request = require("request");
 const cheerio = require("cheerio");
-const baseUrl = 'https://www.newegg.com/p/pl?N=100006740%204814&Page='
+const urls = [
+  'https://www.newegg.com/p/pl?N=100006740%204814&Page=1&PageSize=96',
+  'https://www.newegg.com/p/pl?N=100006740%204814&Page=2&PageSize=96',
+  
+  
+  
+]
+var promises = []
 //"https://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100006740%20601286795%20601286800%20600136700%20601296059%20601296066%204814&IsNodeId=1&LeftPriceRange=750%201250&bop=And&Page=";
 
-function getUrl(pageNum) {
+// function getUrl(pageNum) {
+//   console.log(pageNum)
+//   return `${baseUrl}${pageNum}&PageSize=96`
 
-  return `${baseUrl}${pageNum}&PageSize=96`
-
-}
-const myRequest = () => {
-  return new Promise((resolve, reject) => {
+// }
+for (var url of urls){
+  promises.push(new Promise((resolve, reject) => {
     request(
-      getUrl(3),
+      url,
       (err, response, html) => {
-        if (err) return reject(err);
+        if (err) return reject(err)
         try {
           const $ = cheerio.load(html);
           let items = [];
@@ -58,9 +65,13 @@ const myRequest = () => {
           reject(e);
         }
       }
-    );
-  });
+    )
+  }))
 }
 
-myRequest();
-module.exports = myRequest;
+module.exports = exports = function(){
+  return Promise.all(promises).then((results)=>{
+    
+    return [].concat(...results)
+  })
+}

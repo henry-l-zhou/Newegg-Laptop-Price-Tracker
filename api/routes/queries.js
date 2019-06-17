@@ -1,5 +1,5 @@
 const { Pool } = require("pg");
-const connectionString = "postgresql://postgres:1718@127.0.0.1:5432/test";
+const connectionString = "postgresql://postgres:1718@127.0.0.1:5432/postgres";
 
 const pool = new Pool({
     connectionString: connectionString
