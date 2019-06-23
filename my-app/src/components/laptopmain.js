@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import LaptopForm from "./laptopform";
 import Laptops from "./laptops";
+import Pagination from "./pagination"
 class LaptopMain extends Component {
-    state = {
-        laptops: []
+    constructor(){
+        super()
+        
+        this.state = {
+            laptops: [],
+            pageOfItems: []
+        }
+        this.onChangePage = this.onChangePage.bind(this);
     }
 
     getLaptops = async (e) => {
@@ -16,13 +23,20 @@ class LaptopMain extends Component {
         this.setState({ laptops: data })
 
     }
+    onChangePage(pageOfItems) {
+        // update state with new page of items
+        this.setState({ pageOfItems: pageOfItems });
+    }
+
 
     render() {
-
+        console.log(this.state.laptops)
+        console.log(this.state.pageOfItems)
         return (
-            <div style={{ marginLeft: '2rem' }}>
+            <div style={{ marginLeft: '1rem' }}>
                 <LaptopForm getLaptops={this.getLaptops} />
-                <Laptops laptops={this.state.laptops}></Laptops>
+                <Laptops laptops={this.state.pageOfItems}></Laptops>
+                <Pagination items={this.state.laptops} onChangePage={this.onChangePage} />
             </div>
         );
     }

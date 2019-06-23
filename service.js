@@ -7,31 +7,27 @@ const pool = new Pool({
 });
 //console.log(msg())
 function getLaptops() {
-  msg().then(response => {
-    
-    const items = [];
+  msg.then(response => {
     response.forEach(object => {
-      items.push(`('${object.itemId}','${object.name}', ${object.price},TIMESTAMP '${object.date}','${object.image_url}')`);
+      try {
+        var item =`('${object.itemId}','${object.name}', ${object.price},TIMESTAMP '${object.date}','${object.image_url}')`
+        pool.query(
+          `insert into laptops(
+                  id,
+                  name,
+                  price,
+                  datecreated,
+                  image_url
+                  ) 
+                  values
+                  ${item} 
+                  `
+        );
+        //console.log(item)
+      } catch(e){
+        console.log(e)
+      }
     })
-    console.log(items.join());
-    ;
-    try {
-      var response = pool.query(
-        `insert into laptops(
-                id,
-                name,
-                price,
-                datecreated,
-                image_url
-                ) 
-                values 
-                ${items.join(",")} 
-                `
-      );
-      console.log("worked");
-    } catch (e) {
-      console.error("My ERROR", e);
-    }
   });
 }
 

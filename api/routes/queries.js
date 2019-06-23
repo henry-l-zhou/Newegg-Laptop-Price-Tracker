@@ -73,7 +73,7 @@ function getLaptopByDistinctName(req, res, next) {
             SELECT *, ROW_NUMBER() OVER (PARTITION BY id ORDER BY datecreated desc) AS ROWNUM 
             FROM laptops
         ) x WHERE ROWNUM = 1 and upper(name) like upper($1)
-        LIMIT 30`
+        LIMIT 100`
             , [name], (error, results) => {
                 if (error) {
                     throw error

@@ -11,6 +11,7 @@ class LaptopForm extends Component {
 
     }
     handleChange(event) {
+        event.preventDefault()
         this.setState({ value: event.target.value });
 
     }
@@ -19,7 +20,7 @@ class LaptopForm extends Component {
 
         return (
             <div className="col-md-4" style={{ marginBottom: "2rem", marginTop: "2rem", }}>
-                <Form>
+                <Form inline>
                     <Form.Control type="text" name="name" placeholder="Search For Laptops" value={this.state.value}
                         onChange={this.handleChange} />
                     <Link to={`/laptops/search/${this.state.value}`}>
