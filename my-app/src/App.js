@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import './App.css';
 import LaptopMain from "./components/laptopmain"
 import Header from "./components/Header"
-import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from "./components/home"
 import LaptopInfo from './components/laptopinfo';
+import LaptopForm from './components/laptopform';
 
 class App extends Component {
   render() {
@@ -12,8 +13,10 @@ class App extends Component {
       <Router >
         <Header></Header>
         <Route exact path="/" component={Home}></Route>
-        <Route path="/laptops" component={LaptopMain}></Route>
+        <Route path="/laptops" component={LaptopForm}></Route>
+        <Route exact path="/laptops/search/:laptopId" component={LaptopMain}></Route>
         <Route exact path="/laptops/:laptopId" component={LaptopInfo}></Route>
+        
       </Router>
 
     );

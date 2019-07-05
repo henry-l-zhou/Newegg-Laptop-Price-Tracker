@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Form, Button } from 'react-bootstrap'
 import { Link } from "react-router-dom";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 class LaptopForm extends Component {
     constructor(props) {
         super(props);
@@ -19,14 +20,15 @@ class LaptopForm extends Component {
     render() {
 
         return (
-            <div className="col-md-4" style={{ marginBottom: "2rem", marginTop: "2rem", }}>
+            <div style={{ marginBottom: "2rem", marginTop: "2rem", marginRight: "20%", marginLeft: "20%"}}>
                 <Form inline>
                     <Form.Control type="text" name="name" placeholder="Search For Laptops" value={this.state.value}
                         onChange={this.handleChange} />
                     <Link to={`/laptops/search/${this.state.value}`}>
-                        <Button variant="secondary" type="submit" onClick={this.props.getLaptops} value={this.state.value}>Submit</Button>
+                        <Button type = "submit" variant = "outline-info"  onClick={this.props.getLaptops} value={this.state.value}>
+                            <FontAwesomeIcon icon = {faSearch}></FontAwesomeIcon>
+                        </Button>
                     </Link>
-
                 </Form>
             </div>
         )

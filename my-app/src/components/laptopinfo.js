@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { Modal, Button } from 'react-bootstrap'
 import CanvasJSReact from '../canvasjs.react'
-import withRouter from 'react-router-dom'
-var CanvasJS = CanvasJSReact.CanvasJS;
+import {  Link } from "react-router-dom";
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class LaptopInfo extends Component {
@@ -11,14 +10,14 @@ class LaptopInfo extends Component {
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.state = {
-            laptops: [],
+            laptops: [{}],
             show: true,
-        };
+        }
+        console.log(props)
     }
 
-
-
     componentDidMount() {
+        
         const { match: { params } } = this.props
         fetch(`http://localhost:9000/api/laptops/${params.laptopId}`)
             .then(results => {
@@ -28,6 +27,7 @@ class LaptopInfo extends Component {
                 this.setState({ laptops: data })
             })
     }
+
     handleClose() {
         this.setState({ show: false });
         this.props.history.push(`/laptops/`)
@@ -39,16 +39,18 @@ class LaptopInfo extends Component {
     render() {
         var dps = []
         var options = {
+            
             animationEnabled: true,
-
+            zoomEnabled: true, 
             title: {
                 text: ''
             },
             axisX: {
-                valueFormatString: "DD MMMM"
+                valueFormatString: "DD MMMM",
+                interlacedColor: "#F0F8FF" 
             },
             axisY: {
-                title: 'Laptop Price',
+                title: '',
                 prefix: "$",
                 includeZero: false
             },
@@ -66,16 +68,55 @@ class LaptopInfo extends Component {
                 y: laptop.price
             })
         })
-        console.log(this.state)
+        console.log(this.state.laptops)
         return (
-
+            
             <>
-                <Modal show={this.state.show} onHide={this.handleClose}>
-                    <Modal.Header closeButton>
-
-                    </Modal.Header>
-
-                    <CanvasJSChart options={options}></CanvasJSChart>
+                <Modal size="lg" show={this.state.show} onHide={this.handleClose} centered>
+                    <Modal.Header closeButton >
+                        Laptop Details: {this.state.laptops[0].name}
+                    </Modal.Header>    
+                    
+                    <div style = {{ display:"flex", flexDirection: "row"}}>
+                        <div style = {{width: "50%"}}>
+                            <Modal.Body>
+                                <p>
+                                {this.state.laptops[0].type && <>
+                                    Type: {this.state.laptops[0].type}
+                                    </>
+                                }
+                                </p>
+                                <p>
+                                {this.state.laptops[0].resolution && <>
+                                    Resolution: {this.state.laptops[0].resolution}
+                                    </>
+                                }
+                                </p>
+                                <p>
+                                {this.state.laptops[0].type && <>
+                                    Weight: {this.state.laptops[0].weight}
+                                    </>
+                                }
+                                </p>
+                                <p>
+                                {this.state.laptops[0].graphics_card && <>
+                                    Graphics Card: {this.state.laptops[0].graphics_card}
+                                    </>
+                                }
+                                </p>
+        
+                                <p>
+                                {this.state.laptops[0].type && <>
+                                    <a href={this.state.laptops[0].item_url} target="_blank" rel="noopener noreferrer"><Button variant="info">Buy</Button></a>
+                                    </>
+                                }
+                                </p>
+                            </Modal.Body>
+                        </div>
+                        <div style = {{width: "100%", margin: "1rem"}}>
+                            <CanvasJSChart options={options}></CanvasJSChart>
+                        </div>
+                    </div>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={this.handleClose}>
                             Close
@@ -83,7 +124,7 @@ class LaptopInfo extends Component {
                     </Modal.Footer>
                 </Modal>
             </>
-        );
+        )
 
     }
 }

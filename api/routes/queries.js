@@ -34,9 +34,27 @@ function getAllLaptopsDistinct(req, res, next) {
 }
 function getLaptopById(req, res, next) {
     try {
-        const id = `%${req.params.id}%`;
+        const id = `%${req.params.id}%`
+        
         console.log(id);
-        pool.query('select * from laptops where upper(id) LIKE upper($1) ORDER BY id DESC, datecreated asc LIMIT 30', [id], (error, results) => {
+        pool.query('select * from laptops where upper(id) LIKE upper($1) ORDER BY id DESC, datecreated desc', [id], (error, results) => {
+            if (error) {
+                throw error
+            }
+            res.status(200).json(results.rows)
+        })
+        console.log("worked");
+    }
+    catch (e) {
+        console.log("My Error", e)
+    }
+}
+function getLaptopByName(req, res, next) {
+    try {
+        const name = `%${req.params.name}%`
+        
+        console.log(name);
+        pool.query('select * from laptops where upper(name) LIKE upper($1) ORDER BY name DESC, datecreated desc', [name], (error, results) => {
             if (error) {
                 throw error
             }
@@ -68,12 +86,13 @@ function getLaptopByDistinctName(req, res, next) {
     try {
         const name = `%${req.params.name}%`;
         console.log(name)
+        //pool.query - instead of partition by name --> partiotion by id before
         pool.query(`
         SELECT id, name,price, datecreated,serial_id,image_url FROM (
-            SELECT *, ROW_NUMBER() OVER (PARTITION BY id ORDER BY datecreated desc) AS ROWNUM 
+            SELECT *, ROW_NUMBER() OVER (PARTITION BY name ORDER BY datecreated desc) AS ROWNUM 
             FROM laptops
-        ) x WHERE ROWNUM = 1 and upper(name) like upper($1)
-        LIMIT 100`
+        ) x WHERE ROWNUM = 1 and upper(name) like upper($1) ORDER BY datecreated desc
+        LIMIT 1000`
             , [name], (error, results) => {
                 if (error) {
                     throw error
@@ -91,5 +110,6 @@ module.exports = {
     getLaptopById,
     getAllLaptopsDistinct,
     getLaptopByDistinctId,
-    getLaptopByDistinctName
+    getLaptopByDistinctName,
+    getLaptopByName
 };

@@ -9,23 +9,22 @@ const pool = new Pool({
 function getLaptops() {
   msg.then(response => {
     response.forEach(object => {
+      
       try {
-        var item =`('${object.itemId}','${object.name}', ${object.price},TIMESTAMP '${object.date}','${object.image_url}')`
+        var item =
+        `('${object.itemId}','${object.name}', ${object.price},TIMESTAMP '${object.date}','${object.image_url}',
+        '${object.modelId}','${object.type}','${object.resolution}','${object.weight}','${object.graphicsCard}','${object.item_url}')`
+        console.log(item)
         pool.query(
-          `insert into laptops(
-                  id,
-                  name,
-                  price,
-                  datecreated,
-                  image_url
-                  ) 
-                  values
-                  ${item} 
-                  `
+          `insert into laptops
+          (id,name,price,datecreated,image_url,model_id,type,resolution,weight,graphics_card,item_url) 
+          values ${item}`
         );
-        //console.log(item)
+        
       } catch(e){
         console.log(e)
+        
+        
       }
     })
   });
