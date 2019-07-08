@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import LaptopForm from "./laptopform";
+
 import Laptops from "./laptops";
 import Pagination from "./pagination"
 
@@ -18,16 +18,14 @@ class LaptopMain extends Component {
 
     componentDidMount = async () => {
         const laptopName = this.props.match.params.laptopId
-            
-            const api_call = await fetch(`http://localhost:9000/api/distinctlaptopsname/${laptopName}`);
-            const data = await api_call.json()
-            this.setState({ laptops: data })
+        const api_call = await fetch(`http://localhost:9000/api/distinctlaptopsname/${laptopName}`);
+        const data = await api_call.json()
+        this.setState({ laptops: data })
     }
     componentDidUpdate = async (prevProps) => {
         
-        if (this.props != prevProps){
-            const laptopName = this.props.match.params.laptopId
-            
+        if (this.props !== prevProps){
+            const laptopName = this.props.match.params.laptopId       
             const api_call = await fetch(`http://localhost:9000/api/distinctlaptopsname/${laptopName}`);
             const data = await api_call.json()
             this.setState({ laptops: data })

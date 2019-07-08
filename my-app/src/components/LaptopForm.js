@@ -25,7 +25,7 @@ class LaptopForm extends Component {
                     <Form.Control type="text" name="name" placeholder="Search For Laptops" value={this.state.value}
                         onChange={this.handleChange} />
                     <Link to={`/laptops/search/${this.state.value}`}>
-                        <Button type = "submit" variant = "outline-info"  onClick={this.props.getLaptops} value={this.state.value}>
+                        <Button type = "submit" variant = "outline-info" value={this.state.value}>
                             <FontAwesomeIcon icon = {faSearch}></FontAwesomeIcon>
                         </Button>
                     </Link>

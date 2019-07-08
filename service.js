@@ -5,7 +5,9 @@ const connectionString = "postgresql://postgres:1718@127.0.0.1:5432/postgres";
 const pool = new Pool({
   connectionString: connectionString
 });
-//console.log(msg())
+/**
+ * inserts laptop into postgresql database
+ */
 function getLaptops() {
   msg.then(response => {
     response.forEach(object => {

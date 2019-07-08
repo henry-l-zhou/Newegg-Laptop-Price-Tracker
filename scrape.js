@@ -1,22 +1,12 @@
 const request = require("request")
 const cheerio = require("cheerio")
-
-const urls = [
-  'https://www.newegg.com/p/pl?N=100006740%204814&Page=1&PageSize=96&order=BESTSELLING',
-  'https://www.newegg.com/p/pl?N=100006740%204814&Page=2&PageSize=96&order=BESTSELLING',
-  'https://www.newegg.com/p/pl?N=100006740%204814&Page=3&PageSize=96&order=BESTSELLING',
-  'https://www.newegg.com/p/pl?N=100006740%204814&Page=4&PageSize=96&order=BESTSELLING',
-  'https://www.newegg.com/p/pl?N=100006740%204814&Page=5&PageSize=96&order=BESTSELLING',
-  'https://www.newegg.com/p/pl?N=100006740%204814&Page=6&PageSize=96&order=BESTSELLING'
-]
-var promises = []
-//"https://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100006740%20601286795%20601286800%20600136700%20601296059%20601296066%204814&IsNodeId=1&LeftPriceRange=750%201250&bop=And&Page="
-
-// function getUrl(pageNum) {
-//   console.log(pageNum)
-//   return `${baseUrl}${pageNum}&PageSize=96`
-
-// }
+/**
+ * 
+ * Scrapes a given Newegg's webpage finding a laptop's item features 
+ * 
+ * param - the url of the site
+ * return - a promise containing an array of laptop objects 
+ */
 function makeRequest(url){
   promises.push(new Promise((resolve, reject) => {
     request(url,(err, response, html) => {
@@ -103,16 +93,21 @@ function makeRequest(url){
 function timer(ms) {
   return new Promise(res => setTimeout(res, ms))
  }
+/**
+ * Takes the first 80 urls of the bestselling laptops and waits 10 seconds to scrape it
+ */
 async function load(){
-  for (var url of urls){
+  for (var page = 0; page < 80; page++){
+    let url = `https://www.newegg.com/p/pl?N=100006740%204814&Page=${page}&PageSize=96&order=BESTSELLING`
     makeRequest(url)
     console.log(Date())
-    await timer(2000)
+    await timer(10000)
     
   }
 }
-
-
+/**
+ * exports the promises from scraping 
+ */
 module.exports = exports = load().then(()=>{
   
   return Promise.all(promises)
