@@ -91,37 +91,37 @@ class LaptopInfo extends Component {
                     </div>
                 </div>
                 <div>
-                <p>
-                        {this.state.laptops[0].type && <>
-                            Type: {this.state.laptops[0].type}
-                            </>
-                        }
-                        </p>
-                        <p>
-                        {this.state.laptops[0].resolution && <>
-                            Resolution: {this.state.laptops[0].resolution}
-                            </>
-                        }
-                        </p>
-                        <p>
-                        {this.state.laptops[0].type && <>
-                            Weight: {this.state.laptops[0].weight}
-                            </>
-                        }
-                        </p>
-                        <p>
-                        {this.state.laptops[0].graphics_card && <>
-                            Graphics Card: {this.state.laptops[0].graphics_card}
-                            </>
-                        }
-                        </p>
+                    <p>
+                    {this.state.laptops[0].type && <>
+                        Type: {this.state.laptops[0].type}
+                        </>
+                    }
+                    </p>
+                    <p>
+                    {this.state.laptops[0].resolution && <>
+                        Resolution: {this.state.laptops[0].resolution}
+                        </>
+                    }
+                    </p>
+                    <p>
+                    {this.state.laptops[0].type && <>
+                        Weight: {this.state.laptops[0].weight}
+                        </>
+                    }
+                    </p>
+                    <p>
+                    {this.state.laptops[0].graphics_card && <>
+                        Graphics Card: {this.state.laptops[0].graphics_card}
+                        </>
+                    }
+                    </p>
 
-                        <p>
-                        {this.state.laptops[0].type && <>
-                            <a href={this.state.laptops[0].item_url} target="_blank" rel="noopener noreferrer"><Button variant="info">Buy</Button></a>
-                            </>
-                        }
-                        </p>
+                    <p>
+                    {this.state.laptops[0].type && <>
+                        <a href={this.state.laptops[0].item_url} target="_blank" rel="noopener noreferrer"><Button variant="info">Buy</Button></a>
+                        </>
+                    }
+                    </p>
                 </div>
             </div>
         )

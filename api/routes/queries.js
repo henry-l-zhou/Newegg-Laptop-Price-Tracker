@@ -54,7 +54,7 @@ function getLaptopByName(req, res, next) {
         const name = `%${req.params.name}%`
         
         console.log(name);
-        pool.query('select * from laptops where upper(name) LIKE upper($1) ORDER BY name DESC, datecreated desc', [name], (error, results) => {
+        pool.query('select * from laptopview where upper(name) LIKE upper($1) ORDER BY name DESC, datecreated desc', [name], (error, results) => {
             if (error) {
                 throw error
             }
@@ -90,7 +90,7 @@ function getLaptopByDistinctName(req, res, next) {
         pool.query(`
         SELECT id, name,price, datecreated,serial_id,image_url FROM (
             SELECT *, ROW_NUMBER() OVER (PARTITION BY name ORDER BY datecreated desc) AS ROWNUM 
-            FROM laptops
+            FROM laptopview
         ) x WHERE ROWNUM = 1 and upper(name) like upper($1) ORDER BY datecreated desc
         LIMIT 1000`
             , [name], (error, results) => {

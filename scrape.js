@@ -7,6 +7,7 @@ const cheerio = require("cheerio")
  * param - the url of the site
  * return - a promise containing an array of laptop objects 
  */
+promises = []
 function makeRequest(url){
   promises.push(new Promise((resolve, reject) => {
     request(url,(err, response, html) => {
@@ -97,11 +98,11 @@ function timer(ms) {
  * Takes the first 80 urls of the bestselling laptops and waits 10 seconds to scrape it
  */
 async function load(){
-  for (var page = 0; page < 80; page++){
+  for (var page = 0; page < 100; page++){
     let url = `https://www.newegg.com/p/pl?N=100006740%204814&Page=${page}&PageSize=96&order=BESTSELLING`
     makeRequest(url)
     console.log(Date())
-    await timer(10000)
+    await timer(15000)
     
   }
 }
