@@ -7,8 +7,8 @@ const Header = () => {
     return (
         <div>
             <Navbar expand="lg" bg="info" variant="info">
-                <Nav className="mr-auto">
-                    <Link to="/"><Button variant="info" size = "lg"><FontAwesomeIcon icon = {faHome}></FontAwesomeIcon></Button></Link>
+                <Nav className="mr-auto" style = {{display: "flex", flexDirection: "row"}}>
+                    <Link to="/"><Button variant="info" size = "lg"><FontAwesomeIcon icon = {faHome} /></Button></Link>
                     <Link to="/laptops"><Button variant="info" size = "lg"><FontAwesomeIcon icon = {faSearch}></FontAwesomeIcon></Button></Link>
                 </Nav>
             </Navbar>

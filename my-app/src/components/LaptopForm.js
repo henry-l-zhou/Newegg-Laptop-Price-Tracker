@@ -20,11 +20,11 @@ class LaptopForm extends Component {
     render() {
 
         return (
-            <div style={{ marginBottom: "2rem", marginTop: "2rem", marginRight: "15%", marginLeft: "15%"}}>
+            <div style={{ marginBottom: "2rem", marginTop: "2rem", marginRight: "20%", marginLeft: "20%"}}>
                 <Form inline>
-                    <Form.Control type="text" name="name" placeholder="Search For Laptops" value={this.state.value}
+                    <Form.Control type="text" name="name" placeholder="Enter In A Laptop Name or Newegg Laptop ID" value={this.state.value}
                         onChange={this.handleChange} style={{height: 40}}/>
-                    <Link to={`/laptops/search/${this.state.value}`}>
+                    <Link to={`/laptops/search/${encodeURIComponent(this.state.value)}`}>
                         <Button type = "submit" variant = "outline-info" value={this.state.value} style={{height: 40, width:40}}>
                             <FontAwesomeIcon icon = {faSearch} ></FontAwesomeIcon>
                         </Button>

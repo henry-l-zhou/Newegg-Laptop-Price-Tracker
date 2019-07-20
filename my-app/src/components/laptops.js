@@ -12,10 +12,10 @@ class Laptops extends Component{
         //console.log(this.props)
         return this.props.laptops.map((laptop) => {
             return (
-                <div key={laptop.serial_id} style={{ width: '16%', minWidth: 250,height: 525,display: 'flex', float: 'left', marginBottom: 25}}>
+                <div key={laptop.serial_id} style={{ width: '15%', minWidth: 250,height: 525,display: 'flex', float: 'left', marginBottom: 25}}>
                     <Card border="info"  >
                         <Card.Img variant="top" src={laptop.image_url} onError={(e)=>{e.target.onerror = null; e.target.src="http://via.placeholder.com/300x225"}} />
-                        <Card.Body>
+                        <Card.Body >
                             <Card.Title>{laptop.name.length < 130 ? `${laptop.name}`: `${laptop.name.substring(0, 130)}...`}
                             </Card.Title>
                             <Card.Text>

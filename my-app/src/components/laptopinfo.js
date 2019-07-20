@@ -19,7 +19,7 @@ class LaptopInfo extends Component {
         
         const { match: { params } } = this.props
         console.log(this.props)
-        fetch(`http://localhost:9000/api/laptops/${encodeURI(params.laptopId)}`)
+        fetch(`http://localhost:9000/api/laptops/${decodeURIComponent(params.laptopId)}`)
             .then(results => {
 
                 return results.json()
@@ -75,7 +75,7 @@ class LaptopInfo extends Component {
         return (
             <div style = {{margin: "3rem"}}>
                 <div style = {{ display:"flex", justifyContent: "center", marginBottom: "2rem"}}>
-                    
+                     
                     {this.state.laptops[0].name && <>
                     <center><strong>{this.state.laptops[0].name}</strong></center>
                     </>

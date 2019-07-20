@@ -11,4 +11,5 @@ router.get('/api/distinctlaptops', db.getAllLaptopsDistinct);
 router.get('/api/laptops/:name', db.getLaptopByName)
 router.get('/api/distinctlaptops/:id', db.getLaptopByDistinctId)
 router.get('/api/distinctlaptopsname/:name', db.getLaptopByDistinctName)
+router.get('/api/priceHistory/:daysBack', db.getPriceHistoryBetweenDates)
 module.exports = router;

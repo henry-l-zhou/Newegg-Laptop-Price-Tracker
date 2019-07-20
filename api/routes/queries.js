@@ -88,10 +88,11 @@ function getLaptopByDistinctName(req, res, next) {
         console.log(name)
         //pool.query - instead of partition by name --> partiotion by id before
         pool.query(`
-        SELECT id, name,price, datecreated,serial_id,image_url FROM (
+        SELECT id, name,price, datecreated,serial_id,image_url,item_url FROM (
             SELECT *, ROW_NUMBER() OVER (PARTITION BY name ORDER BY datecreated desc) AS ROWNUM 
             FROM laptopview
-        ) x WHERE ROWNUM = 1 and upper(name) like upper($1) ORDER BY datecreated desc
+        ) x WHERE ROWNUM = 1 and searchtext @@ plainto_tsquery($1) 
+		ORDER BY datecreated desc
         LIMIT 1000`
             , [name], (error, results) => {
                 if (error) {
@@ -105,11 +106,34 @@ function getLaptopByDistinctName(req, res, next) {
         console.log("My Error", e)
     }
 }
+
+function getPriceHistoryBetweenDates(req, res, next) {
+    try {
+        const daysBack = parseInt(req.params.daysBack)
+        console.log(daysBack)
+        
+        pool.query(`
+        select * from laptopview  WHERE date(datecreated) = (current_date - $1::int) or 
+        date(datecreated) = current_date order by datecreated desc`
+            ,[daysBack], (error, results) => {
+                if (error) {
+                    throw error
+                }
+                res.status(200).json(results.rows)
+            })
+        console.log("worked");
+    }
+    catch (e) {
+        console.log("My Error", e)
+    }
+}
+
 module.exports = {
     getAllLaptops,
     getLaptopById,
     getAllLaptopsDistinct,
     getLaptopByDistinctId,
     getLaptopByDistinctName,
-    getLaptopByName
+    getLaptopByName,
+    getPriceHistoryBetweenDates
 };

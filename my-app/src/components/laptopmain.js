@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
-
+import React, { Component } from 'react'
+import { Spinner } from 'react-bootstrap'
 import Laptops from "./laptops";
 import Pagination from "./pagination"
-import { faSpinner} from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 class LaptopMain extends Component {
     constructor(props){
         super(props)
@@ -56,9 +55,9 @@ class LaptopMain extends Component {
         //console.log(this.state.laptops)
         //console.log(this.state)
         return (
-            <div style={{ marginLeft: '1rem',marginRight: '1rem',  height: 200, width: "auto", display:"flex", flexDirection: "column"}} >
+            <div style={{ marginLeft: '5rem',marginRight: '5rem',  height: 200, width: "auto", display:"flex", flexDirection: "column"}} >
                 {this.state.loading &&
-                        <FontAwesomeIcon icon = {faSpinner} style={{width:"100%", height: "100%"}}></FontAwesomeIcon>
+                        <Spinner animation="border" variant="info" />
                     }
                 <div> {this.state.laptops.length > 0 && !this.state.loading &&
                     <div>
