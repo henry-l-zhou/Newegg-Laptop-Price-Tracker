@@ -80,12 +80,11 @@ img {
   color: black;
 }
 
-.btn-circle {
 
-  
+.btn-overflow {
+  text-overflow: ellipsis;
+  overflow: hidden;
   text-align: center;
-  
-  
+  justify-content: center;
   
 }
-

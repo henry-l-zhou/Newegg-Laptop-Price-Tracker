@@ -10,6 +10,9 @@ const Home = () => {
                 <p>
                     Searches for Laptops and graphs their prices over time!
                 </p>
+                <strong>
+                    Note: Prices may not be 100% accurate.
+                </strong>
             </Jumbotron>
             <TopPrices></TopPrices>
         </div>

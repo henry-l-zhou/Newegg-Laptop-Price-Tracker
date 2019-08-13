@@ -20,7 +20,7 @@ class TopPrices extends Component {
         var dict = []
         var sorted = []
         this.setState({loading: true})
-        fetch(`http://localhost:9000/api/pricehistory/1`).then( results => {
+        fetch(`http://localhost:9000/api/pricehistory/5`).then( results => {
             return results.json()
 
         }).then( data => {
@@ -48,7 +48,7 @@ class TopPrices extends Component {
             return sorted
         }).then(sorted=>{
             this.setState({laptops: sorted, loading: false})
-            
+            console.log(this.state.laptops )
         })
     }
 
@@ -57,14 +57,15 @@ class TopPrices extends Component {
             arrows: true,
             dots: true,
             infinite: true,
-            speed: 500,
-            slidesToShow: 3,
-            slidesToScroll: 3,
+            speed: 1500,
+            slidesToShow: 5,
+            slidesToScroll: 5,  
+            
+            
             
             
         };
-        console.log(this.state)
-        console.log(this.state.laptops[0][1])
+        
     return (
         <div style = {{marginLeft: "1rem", marginRight: "1rem"}}>
 
@@ -75,17 +76,19 @@ class TopPrices extends Component {
             <Slider {...settings}>
 
                 {this.state.laptops.length > 2 && 
-                    this.state.laptops.slice(0,15).map(laptop=>{
+                    this.state.laptops.slice(0,25).map(laptop=>{
                         return(
                             <>
                             
                             <Card  key = {laptop[0][0].serial_id}>
                                 <Card.Img variant="top" src={laptop[0][0].image_url} onError={(e)=>{e.target.onerror = null; e.target.src="http://via.placeholder.com/300x225"}} />
-                                <Card.Body style = {{backgroundColor: "#DCDCDC"}}>
+                                <Card.Body style = {{backgroundColor: "#e9ecef"}}>
                                     
                                     <Card.Title>
                                     <Link to={`/laptops/item/${encodeURIComponent(laptop[0][0].name)}`} target="_blank" rel="noopener noreferrer">
-                                        <Button variant = "outline-info" className = "btn-circle">{laptop[0][0].name.length < 130 ? `${laptop[0][0].name}`: `${laptop[0][0].name.substring(0, 130)}...`}</Button>
+                                        
+                                        <Button className = "btn-overflow"variant = "outline-info" style = {{width: "100%", height: "9.5rem"}} >{laptop[0][0].name}</Button>
+                                        
                                     </Link>   
                                     </Card.Title>
                                 
