@@ -20,7 +20,7 @@ class TopPrices extends Component {
         var dict = []
         var sorted = []
         this.setState({loading: true})
-        fetch(`http://localhost:9000/api/pricehistory/5`).then( results => {
+        fetch(`http://localhost:9000/api/pricehistory/2`).then( results => {
             return results.json()
 
         }).then( data => {

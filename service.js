@@ -1,6 +1,8 @@
 const { Pool, Client } = require("pg");
 const msg = require("./scrape.js");
 const connectionString = "postgresql://postgres:1718@127.0.0.1:5432/postgres";
+var schedule = require('node-schedule');
+
 
 const pool = new Pool({
   connectionString: connectionString
@@ -26,7 +28,7 @@ function getLaptops() {
       try {
         var item =
         `('${object.name}', ${object.price},TIMESTAMP '${object.date}')`
-        console.log(item)
+
         pool.query(
           `insert into laptoppricehistory
           (name,price,datecreated) 
@@ -40,8 +42,8 @@ function getLaptops() {
     })
   });
 }
+var j = schedule.scheduleJob('0 0 * * *', getLaptops);
 
-getLaptops()
 
 
 

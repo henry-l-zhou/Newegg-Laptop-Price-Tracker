@@ -65,7 +65,12 @@ class LaptopMain extends Component {
                     </div>
                 }
                 </div>
-                
+                <div> {this.state.laptops.length == 0 && !this.state.loading &&
+                    <b style = {{justifyContent: "center", display: "flex"}}>
+                        Error: No Results Found
+                    </b>
+                }
+                </div>
                 <div> {this.state.laptops.length > 0 &&
                     <div>{!this.state.loading &&
                         <Laptops laptops={this.state.pageOfItems}></Laptops>

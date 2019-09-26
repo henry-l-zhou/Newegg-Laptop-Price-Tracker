@@ -77,13 +77,13 @@ function makeRequest(url){
               items.push(laptop)
               //console.log(laptop)
             } catch(e){
-              console.log(e)
+
             }
           })
             
             resolve(items)
         } catch (e) {
-          console.log('look HERE' + e)
+          
           
         }
       }
@@ -113,6 +113,6 @@ module.exports = exports = load().then(()=>{
   
   return Promise.all(promises)
   .then((results)=>{return [].concat(...results)})
-  .catch((e)=> {console.log(e)})
+
 })
 
