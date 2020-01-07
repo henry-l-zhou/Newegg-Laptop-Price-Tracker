@@ -16,13 +16,13 @@ class Laptops extends Component{
                     <Card border="info"  >
                         <Card.Img variant="top" src={laptop.image_url} onError={(e)=>{e.target.onerror = null; e.target.src="http://via.placeholder.com/300x225"}} />
                         <Card.Body >
-                            <Card.Title>{laptop.name.length < 130 ? `${laptop.name}`: `${laptop.name.substring(0, 130)}...`}
+                            <Card.Title>{laptop.name.length < 150 ? `${laptop.name}`: `${laptop.name.substring(0, 150)}...`}
                             </Card.Title>
-                            <Card.Text>
+                            <Card.Text style = {{ bottom: 50, position: "absolute", marginBottom: 25}}>
                                 Laptop Price: ${laptop.price}
                             </Card.Text>
                             <div style = {{ bottom: 0, position: "absolute", marginBottom: 25}}>
-                                <Link to={`/laptops/item/${encodeURI(laptop.name)}`} target="_blank" rel="noopener noreferrer"><Button variant="info">Learn More</Button></Link>
+                                <Link to={`/laptops/item/${encodeURI(laptop.name)}`} target="_blank" rel="noopener noreferrer"><Button variant="outline-info">Learn More</Button></Link>
                             </div>
                         </Card.Body>
                     </Card>

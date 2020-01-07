@@ -14,7 +14,7 @@ class App extends Component {
       <Router>
         <Header></Header>
         <Route exact path="/" component={Home}></Route>
-        <Route path="/laptops" component={LaptopForm}></Route>
+        {/* <Route path="/laptops" component={LaptopForm}></Route> */}
         <Route exact path="/laptops/search/:laptopId" component={LaptopMain}></Route>
         <Route exact path="/laptops/item/:laptopId" component={LaptopInfo}></Route>
         <Route exact path="/pricedrops" component = {PriceDropPage}></Route>
