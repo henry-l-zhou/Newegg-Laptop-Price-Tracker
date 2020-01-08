@@ -95,13 +95,12 @@ function timer(ms) {
   return new Promise(res => setTimeout(res, ms))
 }
 /**
- * Takes the first 20 urls of the bestselling laptops and waits 1 seconds to scrape it
+ * Takes the first 10 urls of the bestselling laptops and waits 1 seconds to scrape it
  */
 async function load() {
-  for (var page = 0; page < 1; page++) {
-    let url = `https://www.newegg.com/p/pl?N=100006740%204814&Page=${page}&PageSize=36&order=BESTSELLING`
+  for (var page = 0; page < 10; page++) {
+    let url = `https://www.newegg.com/p/pl?N=100006740%204814&Page=${page}&PageSize=96&order=BESTSELLING`
     makeRequest(url)
-    console.log(Date())
     await timer(500)
 
   }

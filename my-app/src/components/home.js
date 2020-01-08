@@ -11,7 +11,7 @@ const Home = () => {
                     Searches for Laptops and graphs their prices over time!
                 </p>
                 <strong>
-                    Note: Prices may not be 100% accurate.
+                    Note: Gathers the top 1000 most popular laptops and graphs their prices.
                 </strong>
             </Jumbotron>
             <TopPrices></TopPrices>
