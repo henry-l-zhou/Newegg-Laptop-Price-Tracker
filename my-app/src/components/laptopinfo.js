@@ -19,9 +19,9 @@ class LaptopInfo extends Component {
         
         const { match: { params } } = this.props
         console.log(this.props)
+        
         fetch(`http://localhost:9000/api/laptops/${decodeURIComponent(params.laptopId)}`)
             .then(results => {
-
                 return results.json()
             }).then(data => {
                 this.setState({ laptops: data })

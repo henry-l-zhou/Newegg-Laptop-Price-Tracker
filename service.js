@@ -22,6 +22,19 @@ function getLaptops() {
         values ${itemInfo}`
       ).catch(function (e) {
         // need this catch block to handle UnhandledPromiseRejectionWarning
+        pool.query(`update laptops 
+        set id = '${object.itemId}',
+        image_url = '${object.image_url}',
+        model_id = '${object.modelId}',
+        type = '${object.type}',
+        resolution = '${object.resolution}',
+        weight = '${object.weight}',
+        graphics_card = '${object.graphicsCard}',
+        item_url = '${object.item_url}'
+        where name = '${object.name}'`)
+          .catch(function (e) {
+            console.log(e);
+          })
       })
 
       var item =

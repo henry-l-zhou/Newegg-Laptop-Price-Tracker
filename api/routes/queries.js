@@ -93,7 +93,7 @@ function getLaptopByDistinctName(req, res, next) {
             FROM laptopview
         ) x WHERE ROWNUM = 1 and searchtext @@ plainto_tsquery($1) 
 		ORDER BY datecreated desc
-        LIMIT 1000`
+        LIMIT 200`
             , [name], (error, results) => {
                 if (error) {
                     throw error
@@ -113,8 +113,7 @@ function getPriceHistoryBetweenDates(req, res, next) {
         console.log(daysBack)
         
         pool.query(`
-        select * from laptopview  WHERE date(datecreated) = (current_date - $1::int) or 
-        date(datecreated) = current_date order by datecreated desc`
+        SELECT * from laptopview where datecreated between current_date - $1::int and current_date order by datecreated desc`
             ,[daysBack], (error, results) => {
                 if (error) {
                     throw error
